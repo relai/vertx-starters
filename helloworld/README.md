@@ -1,10 +1,10 @@
 # Vert.x for Starters - Hello World!
 
-A "Hello World" example of vert.x HTTP server: 
-* src/main/java/demo.starter.vertx.helloworld.HelloVerticle.java
+A "Hello World" example of a vert.x HTTP server: 
+* [HelloVerticle.java](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/java/demo/starter/vertx/helloworld/HelloVerticle.java)
 
 The project also comes with an integration test:
-* src/test/java/demo.starter.vertx.helloworld.integration.HelloIntegrationTest.java
+* [HelloIntegrationTest.java](https://github.com/relai/vertx-starters/blob/master/helloworld/src/test/java/demo/starter/vertx/helloworld/integration/HelloIntegrationTest.java)
 
 
 ## Maven  
