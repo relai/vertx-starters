@@ -1,12 +1,9 @@
-# Vert.x Starts - Hello World!
+# Vert.x for Starters - Hello World!
 
-This is a basic vert.x project to get things started.
-
-## Content
-
-The project mainly consists of the HelloVerticle and its integration test. 
-
+A "Hello World" example of vert.x HTTP server: 
 * src/main/java/demo.starter.vertx.helloworld.HelloVerticle.java
+
+The project also comes with an integration test:
 * src/test/java/demo.starter.vertx.helloworld.integration.HelloIntegrationTest.java
 
 
@@ -18,7 +15,7 @@ This module is created using [vertx maven integration](http://vertx.io/maven_dev
 *  mvn build
 *  mvn vertx:runMod
 
-The goal vertx:runMod brings up the HTTP server. You can point to it using a web browser:
+The last command brings up the HTTP server. You can point to it using a web browser:
 
 http://localhost:8080
 
