@@ -1,0 +1,8 @@
+{
+  "main":"demo.starter.vertx.helloworld.HelloVerticle",
+  "description":"A Hello World sample for Vert.x",
+  "licenses": ["The Apache Software License Version 2.0"],
+  "author": "Re Lai",
+  "keywords": ["vert.x", "http", "starter", "sample", "tuturial"],
+  "homepage": "url to your project page"
+}
