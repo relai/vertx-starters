@@ -20,8 +20,8 @@ Dynamic contents, the to-do REST service, are served with the help of `RouteMatc
                 .post("/todos",       handler::create)
                 .get("/todos/:id",    handler::findById)
                 .put("/todos/:id",    handler::update)
-                .delete("/todos/:id", handler::delete);        
-      matcher.noMatch(staticHandler());
+                .delete("/todos/:id", handler::delete)       
+                .noMatch(staticHandler());
 
 ## To DO REST Service Backed by MongoDB
 
