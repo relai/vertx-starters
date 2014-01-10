@@ -1,0 +1,9 @@
+{
+  "main":"demo.starter.vertx.todoapi.App",
+
+  "description":"A simple todo rest application",
+  "licenses": ["The Apache Software License Version 2.0"],
+  "author": "Re Lai",
+  "keywords": ["starter", "sample", "rest", "todo"],
+  "homepage": "https://github.com/relai/vertx-starters"
+}

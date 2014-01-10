@@ -1,0 +1,10 @@
+{
+  "main":"demo.starter.vertx.todo.App",
+
+  "description":"vert.x starter sample: to-do web application",
+  "licenses": ["The Apache Software License Version 2.0"],
+  "author": "Re Lai",
+
+  "keywords": ["todomvc", "sample", "starter", "REST"],
+  "homepage": "https://github.com/relai/vertx-starters"
+}
