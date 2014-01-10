@@ -8,10 +8,11 @@ A sample application to track your to-do items:
 
 ## Web Server
 
-The web server is based on the [Vert.x web server] (https://github.com/vert-x/mod-web-server), a simple web server:
+The web server is based on the [Vert.x web server] (https://github.com/vert-x/mod-web-server).
 
-* Static contents placed inside the web root directory are served. The directory is defaulted to be `web`.
-* Dynamic contents, the to-do REST service, served with the help of `RouteMatcher`:
+Static contents placed inside the web root directory are served. The directory is defaulted to be `web`.
+
+Dynamic contents, the to-do REST service, are served with the help of `RouteMatcher`:
 
       ToDoHandler handler = new ToDoHandler(getVertx().eventBus());
       RouteMatcher matcher = new RouteMatcher()
@@ -39,9 +40,9 @@ The rich client application uses the [Backbone.js TodoMVC] (https://github.com/t
 
 The rich client application is almost taken as is. The only code change is to switch the data source from local storage to REST:
 
-                // Backed by todos REST api instead of local storage
-		//localStorage: new Backbone.LocalStorage('todos-backbone'),             
-                url: "/todos",
+      // Backed by todos REST api instead of local storage
+      //localStorage: new Backbone.LocalStorage('todos-backbone'),             
+      url: "/todos",
 
 The content is packaged into the "web" folder inside the mod via the maven resources plugin.
 
