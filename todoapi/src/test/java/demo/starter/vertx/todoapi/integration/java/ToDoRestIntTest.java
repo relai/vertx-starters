@@ -105,8 +105,12 @@ public class ToDoRestIntTest extends TestVerticle {
     @Override
     public void start() {
         initialize();
-        getContainer().deployModule(System.getProperty("vertx.modulename"),
-        //getContainer().deployVerticle("demo.jdk8.TaskRestVerticle", 
+        
+        // Normally one should use "vertx.modulename" system property to retrieve the vertx module name.
+        // However, in the multi-module case, the property incorrectly points to the parent pom.
+        // To workaround, "module.name" system property is added to pom.xml
+        // to point to the correct module name.
+        getContainer().deployModule(System.getProperty("module.name"),
             (AsyncResult<String> asyncResult) -> {
                 assertTrue(asyncResult.succeeded());
                 assertNotNull("deploymentID should not be null", 
