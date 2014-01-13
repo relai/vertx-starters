@@ -1,4 +1,4 @@
-package demo.starter.vertx.todoapi.integration.java;
+package demo.starter.vertx.todo.integration.java;
 
 /*  
  * Integration Test for todoapi App
@@ -6,11 +6,8 @@ package demo.starter.vertx.todoapi.integration.java;
  * @author <a href="http://relai.blogspot.com/">Re Lai</a>
  */
 
-import static org.vertx.testtools.VertxAssert.assertNotNull;
-import static org.vertx.testtools.VertxAssert.assertTrue;
-import static org.vertx.testtools.VertxAssert.testComplete;
-
 import org.junit.Test;
+
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.http.HttpClient;
@@ -18,10 +15,13 @@ import org.vertx.java.core.http.HttpClientRequest;
 import org.vertx.java.core.http.HttpClientResponse;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.testtools.TestVerticle;
-import static org.vertx.testtools.VertxAssert.assertEquals;
+
+import static org.vertx.testtools.VertxAssert.*;
 
 public class ToDoRestIntTest extends TestVerticle {
-
+   
+    private String itemId;
+    
     @Test
     public void getAll() {
         createHttpClient().get("/todos",
@@ -36,34 +36,27 @@ public class ToDoRestIntTest extends TestVerticle {
     }
 
     @Test
-    public void getItem1234() {
-        createHttpClient().get("/todos/1234",
-            (HttpClientResponse resp) -> {
-                assertEquals(200, resp.statusCode());
-                resp.bodyHandler((Buffer data) -> {
-                    getContainer().logger().info("get 1234: " + data.toString());
-                    testComplete();
-                });
-            }
-        ).end();
-    }
-
-    @Test
-    public void createTask() {
+    public void testItemCRUD() {
+        // Starting with creating an item first
+        // We'll then chain tests agaist the item to update, get and delete
         HttpClientRequest request = createHttpClient().post("/todos",             
             (HttpClientResponse resp) -> {            
                 assertEquals(201, resp.statusCode());
 
                 resp.bodyHandler((Buffer data) -> {
                     container.logger().info("create: " + data.toString());
-                    testComplete();
+            
+                    JsonObject payload = new JsonObject(data.toString());
+                    itemId = payload.getString("id");
+                    
+                    updateItem();
                 });
             }
         );
 
         JsonObject task = new JsonObject()
-            .putString("title", "Walk dogs")
-            .putNumber("order", 2)
+            .putString("title", "Create integration tests")
+            .putNumber("order", 100)
             .putBoolean("completed", false);
         Buffer content = new Buffer(task.toString());
 
@@ -73,18 +66,19 @@ public class ToDoRestIntTest extends TestVerticle {
             .end();
     }
 
-    @Test
-    public void updateTask() {        
-        HttpClientRequest request = createHttpClient().put("/todos/2", 
+   
+    private void updateItem() {        
+        HttpClientRequest request = createHttpClient().put("/todos/" + itemId, 
             (HttpClientResponse resp) -> {
                 container.logger().info("Put status: " + resp.statusCode());
-                testComplete();
+                
+                getItem();
         });
 
         JsonObject task = new JsonObject()
-            .putNumber("order", 2)
-            .putString("title", "Have some fun")
-            .putBoolean("completed", false);
+            .putNumber("order", 100)
+            .putString("title", "Create integration tests")
+            .putBoolean("completed", true);
         Buffer content = new Buffer(task.toString());
         request.headers()
                .add("Content-Length", String.valueOf(content.length()));
@@ -92,11 +86,28 @@ public class ToDoRestIntTest extends TestVerticle {
                .end();
     }
 
-    @Test
-    public void deleteTask() {
-        createHttpClient().delete("/todos/2", 
+
+    private void getItem() {
+        createHttpClient().get("/todos/" + itemId,
             (HttpClientResponse resp) -> {
-                getContainer().logger().info("delete 2: " + resp.statusCode());
+                assertEquals(200, resp.statusCode());
+                
+                resp.bodyHandler((Buffer data) -> {
+                    String payload = data.toString();
+                    getContainer().logger().info("get: " + payload);
+                    assertTrue(payload.contains(itemId));
+                    
+                    deleteItem();
+                });
+            }
+        ).end();
+    }
+    
+
+    private void deleteItem() {
+        createHttpClient().delete("/todos/" + itemId, 
+            (HttpClientResponse resp) -> {
+                getContainer().logger().info("delete: " + resp.statusCode());
                 testComplete();            
             }
         ).end();
@@ -115,10 +126,10 @@ public class ToDoRestIntTest extends TestVerticle {
                 assertTrue(asyncResult.succeeded());
                 assertNotNull("deploymentID should not be null", 
                               asyncResult.result());
+
                 startTests();
         });
     }
-
 
     private HttpClient createHttpClient() {
         return getVertx().createHttpClient()

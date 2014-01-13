@@ -1,10 +1,11 @@
 {
   "main":"demo.starter.vertx.todo.App",
+  
+  "includes": "io.vertx~mod-mongo-persistor~2.1.0,io.vertx~mod-web-server~2.0.0-final",
 
   "description":"vert.x starter sample: to-do web application",
   "licenses": ["The Apache Software License Version 2.0"],
   "author": "Re Lai",
-
   "keywords": ["todomvc", "sample", "starter", "REST"],
   "homepage": "https://github.com/relai/vertx-starters"
 }

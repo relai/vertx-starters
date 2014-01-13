@@ -5,6 +5,7 @@ package demo.starter.vertx.helloworld;
  *
  * @author <a href="http://relai.blogspot.com/">Re Lai</a>
  */
+import org.vertx.java.core.Handler;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.platform.Verticle;
 
@@ -13,8 +14,7 @@ public class HelloVerticle extends Verticle {
     @Override
     public void start() {
         getVertx().createHttpServer()
-                  .requestHandler((HttpServerRequest request) -> 
-                        request.response().end("Hello World!"))
+                  .requestHandler(request -> request.response().end("Hello World!"))
                   .listen(8080, "localhost");
     }
 }

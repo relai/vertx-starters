@@ -17,7 +17,7 @@ public class App extends Verticle {
     public void start() {
         // Deploy the mongo persistor
         JsonObject dbConfig = new JsonObject()
-            .putString("address", TODO_PERSISTOR)
+            .putString("address", ToDoHandler.TODO_PERSISTOR)
             .putString("db_name", "todos");
         getContainer().deployModule("io.vertx~mod-mongo-persistor~2.1.0", 
             dbConfig);

@@ -1,6 +1,7 @@
-package demo.starter.vertx.todoapi;
+package demo.starter.vertx.todo;
 
 import org.vertx.java.core.http.RouteMatcher;
+import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.platform.Verticle;
 
 /* 
@@ -9,11 +10,19 @@ import org.vertx.java.platform.Verticle;
  * @author <a href="http://relai.blogspot.com/">Re Lai</a>
  */
 
-public class App extends Verticle {
+public class RestApp extends Verticle {
 
     @Override
     public void start() {
-        SimpleRouteHandler handler = new SimpleRouteHandler();
+        // Deploy the mongo persistor
+        JsonObject dbConfig = new JsonObject()
+            .putString("address", ToDoHandler.TODO_PERSISTOR)
+            .putString("db_name", "todos");
+        getContainer().deployModule("io.vertx~mod-mongo-persistor~2.1.0", 
+            dbConfig);
+        
+        // Set up the route matcher
+        ToDoHandler handler = new ToDoHandler(getVertx().eventBus());
         RouteMatcher routeMatcher = new RouteMatcher()
                 .get("/todos",        handler::findAll)
                 .post("/todos",       handler::create)

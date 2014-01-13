@@ -36,6 +36,8 @@ class ToDoHandler {
 
     private final EventBus eb;
     
+    final static String TODO_PERSISTOR = "todo.mongopersistor";
+    
     // REST Strings
     private final static String LOCATION = "location";
 
@@ -104,6 +106,18 @@ class ToDoHandler {
         });
     }
 
+     void findById2(HttpServerRequest req) {
+        String id = req.params().get(ID);
+        JsonObject command = new JsonObject()
+            .putString("action", "findone")
+            .putString("collection", "item")
+            .putObject("matcher", new JsonObject().putString("_id", id));
+        eb.send("todo.mongopersistor", command, (Message<JsonObject> reply) -> {
+            JsonObject result = reply.body().getObject("result");
+            req.response().end(result.encode());
+        });
+         
+    }
     /**
      * Creates a to-do item. 
      * 
@@ -197,7 +211,7 @@ class ToDoHandler {
      */
     private void executeCommand(JsonObject command, HttpServerRequest request,
         Handler<Message<JsonObject>> handler) {
-        eb.send(App.TODO_PERSISTOR, command, (Message<JsonObject> reply) -> {
+        eb.send(TODO_PERSISTOR, command, (Message<JsonObject> reply) -> {
             if ("ok".equals(reply.body().getString(STATUS))) {
                 handler.handle(reply);
             } else {

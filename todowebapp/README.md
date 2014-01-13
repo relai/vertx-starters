@@ -23,16 +23,30 @@ Dynamic contents, the to-do REST service, are served with the help of `RouteMatc
                 .delete("/todos/:id", handler::delete)       
                 .noMatch(staticHandler());
 
-## To DO REST Service Backed by MongoDB
+## Dependency Management
 
-The todo rest service in the this sample is improved to be backed by MongoDB. It is achieved by ToDoHandler.
+The compile-time dependencies are declared in pom.xml:
 
-ToDoHandler communicates with the MongoDB using io.vertx~mod-mongo-persistor. 
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>mod-web-server</artifactId>
+      <version>${vertx.mod-web-server.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>demo.starter.vertx</groupId>
+      <artifactId>todoapi</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
 
-MongoDB uses "_id" to store a record ID, which is a bit idiosyncratic and should be hidden from our clients. ToDoHandler translates "_id" to "id".
+They are marked as "provided". They are used for compile, but are not packaged into the mod.
 
-From the client-side, the REST service behaves the same as "todoapi". 
+The runtime dependencies are declared in mod.json:
 
+  `"includes": "demo.starter.vertx~todoapi~1.0-SNAPSHOT,io.vertx~mod-mongo-persistor~2.1.0,io.vertx~mod-web-server~2.0.0-final"`
+
+The Vert.x runtime downloads and installs the dependent mods accordingly at the time of deployment.
 
 ## Rich Client Application
 

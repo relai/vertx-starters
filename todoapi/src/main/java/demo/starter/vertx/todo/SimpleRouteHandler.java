@@ -1,4 +1,4 @@
-package demo.starter.vertx.todoapi;
+package demo.starter.vertx.todo;
 
 import java.util.Map;
 import java.util.UUID;
