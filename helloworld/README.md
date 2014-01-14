@@ -1,4 +1,5 @@
-# Vert.x for Starters - Hello World!
+[Vert.x for Starters](https://github.com/relai/vertx-starters)
+# Hello World!
 
 We begin with our starter series with the tradition-honored "Hello World" example.
 
@@ -17,23 +18,23 @@ By nature of event-driven programming, Vert.x extensively uses functional interf
                   .requestHandler(handler)
                   .listen(8080, "localhost");
 
-The `Handler` class is a functional interface, containing a single handler method. This helps Vert.x to interop with functional languages such as Groovy and JavaScript:
+The `Handler` class is a functional interface, containing a single handler method. This design choice allows Vert.x to seamlessly interop with functional languages such as Groovy and JavaScript:
         
         // "Hello World" in Groovy
         vertx.createHttpServer()
              .requestHandler({request ->  request.response().end("Hello World!")})
              .listen(8080, "localhost");
 
-This looks quite less verbose. That probably is the reason why many Vert.x official examples are given in Groovy or JavaScript.
+Isn't this much less verbose? No wonder many Vert.x official examples are given in Groovy or JavaScript.
 
-Fortunately for Java developers, Lambda makes it in Java 8. Vert.x has positioned itself well for this day. The following is the same [HelloVerticle](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/java/demo/starter/vertx/helloworld/HelloVerticle.java) in Java 8:
+Fortunately for Java developers, Lambda finally made it into Java 8, and Vert.x has positioned itself well for this day. The following is the same [HelloVerticle](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/java/demo/starter/vertx/helloworld/HelloVerticle.java) in Java 8:
 
         // "Hello World" in Java 8
         getVertx().createHttpServer()
                   .requestHandler(request -> request.response().end("Hello World!"))
                   .listen(8080, "localhost");
 
-All examples in this series are written in Java 8. 
+Aren't stars all aligned up for Vert.x? Can it be that Vert.x turns out to be the right framework at the right time for the right reason?
 
 
 ## Integration Test 
@@ -48,7 +49,7 @@ Use `mvn install` to compile, test and package the Vert.x mod. To execute the mo
 
     mvn vertx:runMod
 
-The command deploys the "Hello World" example, bringing up the HTTP server at `http://localhost:8080`.
+The command deploys the "Hello World" mod, bringing up the HTTP server at `http://localhost:8080`.
 
 
 

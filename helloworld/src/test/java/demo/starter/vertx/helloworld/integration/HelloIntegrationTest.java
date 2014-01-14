@@ -42,9 +42,8 @@ public class HelloIntegrationTest extends TestVerticle {
         initialize();
 
         // Normally one should use "vertx.modulename" system property to retrieve the vertx module name.
-        // However, in the multi-module case, the property incorrectly points to the parent pom.
-        // To workaround, "module.name" system property is added to pom.xml
-        // to point to the correct module name.
+        // However, in the case of a multi-module maven project, the property incorrectly points to the parent pom.
+        // To workaround, "module.name" system property is added to pom.xml to point to the correct module.
         getContainer().deployModule(System.getProperty("module.name"),
             (AsyncResult<String> result) -> {
                 assertTrue(result.succeeded());
