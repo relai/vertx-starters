@@ -1,6 +1,6 @@
-# Vert.x Starter - TO-do REST Service
+# Vert.x Starter II - TO-do REST Service
 
-This sample is a to-do REST service, backed by MongoDB.
+The to-do service is a REST web service backed by MongoDB. It fully supports CRUD of to-do items.
 
 ## Service Dispatch
 
@@ -14,7 +14,7 @@ REST calls are dispatched by RouteMatcher:
                 .put("/todos/:id",    handler::update)
                 .delete("/todos/:id", handler::delete);
 
-Wow! This really reminds of Node.js. Java has come a long way!
+Wow! This really reminds of Node.js. Java and Vert.x has come a long way!
 
 ## Integration with MongoDB
 
@@ -39,17 +39,15 @@ Invocation to the persistor is made through the Vert.x event bus. The following 
             req.response().end(result.encode());
         });
 
-As all communication is made via the event bus. This is a nice architecture choice by Vert.x, making the client code only loosely coupled with the persistor mod. 
+All communication is made via the event bus. This is a nice architecture choice by Vert.x, making the client code only loosely coupled with the mods it depends. 
 
-`ToDoHandler` contains a complete list of of CRUD operations.
-
-MongoDB uses `_id` to store a record ID, which is a bit idiosyncratic and should be hidden from our clients. ToDoHandler translates `_id` to "id".
-
+MongoDB uses `_id` to store a record ID, which is a bit idiosyncratic and should be hidden from our clients. `ToDoHandler` takes the responsibility of translating `_id` to `id`.
 
 ## Dependency Management
 
 It is a good idea to explicitly declare the project's dependency in its mod.json:
-    `"includes": "io.vertx~mod-mongo-persistor~2.1.0"`
+
+    "includes": "io.vertx~mod-mongo-persistor~2.1.0"
 
 ## Integration Test
 
@@ -57,7 +55,7 @@ The `ToDoRestIntTest` tests fully all CRUD operations.
 
 ## To-do REST Service Sample Data
 
-The following is a list of the sample data of CRUD operations of the todos REST service:
+The following are sample service calls:
 
 POST http://localhost:8080/todos 
 
@@ -84,7 +82,7 @@ GET http://localhost:8080/todos/55e1eaaf-772a-4c0c-a3c8-ebf770b7c0f0
 
 PUT http://localhost:8080/todos/55e1eaaf-772a-4c0c-a3c8-ebf770b7c0f0
 
-    Request Payload: `{"title":"Buy coffee","order":1,"completed":true,"id":"55e1eaaf-772a-4c0c-a3c8-ebf770b7c0f0"}`
+    Request Payload: {"title":"Buy coffee","order":1,"completed":true,"id":"55e1eaaf-772a-4c0c-a3c8-ebf770b7c0f0"}
 
     HTTP/1.1 204 OK
     Content-Length: 0

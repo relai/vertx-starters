@@ -1,5 +1,4 @@
-[Vert.x for Starters](https://github.com/relai/vertx-starters)
-# Hello World!
+# Vert.x Starter I - Hello World!
 
 We begin with our starter series with the tradition-honored "Hello World" example.
 
@@ -34,7 +33,7 @@ Fortunately for Java developers, Lambda finally made it into Java 8, and Vert.x 
                   .requestHandler(request -> request.response().end("Hello World!"))
                   .listen(8080, "localhost");
 
-Aren't stars all aligned up for Vert.x? Can it be that Vert.x turns out to be the right framework at the right time for the right reason?
+Aren't stars all aligned for Vert.x? Isn't it simply the right framework at the right time?
 
 
 ## Integration Test 

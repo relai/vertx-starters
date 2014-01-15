@@ -32,7 +32,7 @@ import org.vertx.java.core.Handler;
  * @author <a href="http://relai.blogspot.com/">Re Lai</a>
  */
 
-class ToDoHandler {
+public class ToDoHandler {
 
     private final EventBus eb;
     
@@ -65,7 +65,7 @@ class ToDoHandler {
      * 
      * @param eb The vert.x event bus.
      */
-    ToDoHandler(EventBus eb) {
+    public ToDoHandler(EventBus eb) {
         this.eb = eb;
     }
     
@@ -74,7 +74,7 @@ class ToDoHandler {
      *
      * @param      req the HTTP server request
      */
-    void findAll(HttpServerRequest req) {
+    public void findAll(HttpServerRequest req) {
         JsonObject command = new JsonObject()
             .putString(ACTION, FIND)
             .putString(COLLECTION, ITEMS);
@@ -94,7 +94,7 @@ class ToDoHandler {
      *
      * @param      req the HTTP server request
      */
-    void findById(HttpServerRequest req) {
+    public void findById(HttpServerRequest req) {
         String id = req.params().get(ID);
         JsonObject command = new JsonObject()
             .putString(ACTION, FINDONE)
@@ -106,18 +106,6 @@ class ToDoHandler {
         });
     }
 
-     void findById2(HttpServerRequest req) {
-        String id = req.params().get(ID);
-        JsonObject command = new JsonObject()
-            .putString("action", "findone")
-            .putString("collection", "item")
-            .putObject("matcher", new JsonObject().putString("_id", id));
-        eb.send("todo.mongopersistor", command, (Message<JsonObject> reply) -> {
-            JsonObject result = reply.body().getObject("result");
-            req.response().end(result.encode());
-        });
-         
-    }
     /**
      * Creates a to-do item. 
      * 
@@ -127,7 +115,7 @@ class ToDoHandler {
      * 
      * @param      req the HTTP server request
      */
-    void create(final HttpServerRequest req) {
+    public void create(final HttpServerRequest req) {
         Buffer body = new Buffer(0);
         req.dataHandler((Buffer data) -> {
             body.appendBuffer(data);
@@ -155,7 +143,7 @@ class ToDoHandler {
      * 
      * @param      req the HTTP server request
      */
-    void update(HttpServerRequest req) {
+    public void update(HttpServerRequest req) {
         String id = req.params().get(ID);
         Buffer body = new Buffer(0);
         req.dataHandler((Buffer data) -> {
@@ -181,7 +169,7 @@ class ToDoHandler {
      * 
      * @param      req the HTTP server request
      */
-    void delete(HttpServerRequest req) {
+    public void delete(HttpServerRequest req) {
         final String id = req.params().get(ID);
         JsonObject command = new JsonObject()
             .putString(ACTION, DELETE)
