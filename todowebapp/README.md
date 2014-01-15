@@ -44,11 +44,11 @@ They are marked as "provided", as they are only needed for compile, but not pack
 
 The deployment-time dependencies are declared in mod.json:
 
-  "includes": "demo.starter.vertx~todoapi~1.0-SNAPSHOT,io.vertx~mod-web-server~2.0.0-final"
+      "includes": "demo.starter.vertx~todoapi~1.0-SNAPSHOT,io.vertx~mod-web-server~2.0.0-final"
 
 Vert.x downloads and installs the dependent mods accordingly at the time of deployment. 
 
-Vert.x also manages transitive dependencies. The todoapi mod itself depends on `io.vertx~mod-mongo-persistor~2.1.0`, but we do not need to explicitly declare here. Vert.x figures this out based on its `mod.json`.
+Transitive dependencies are not required to be declared explicitly. The todoapi mod itself depends on `io.vertx~mod-mongo-persistor~2.1.0`. Vert.x figures this out by inspecting its `mod.json`.
 
 
 ## Rich Client Application
