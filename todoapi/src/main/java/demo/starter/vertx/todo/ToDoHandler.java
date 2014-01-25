@@ -8,7 +8,7 @@ import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.core.Handler;
 
-/* 
+/** 
  * The todo REST api handler
  *
  * Backed by MongoDB via the mongo persistor.

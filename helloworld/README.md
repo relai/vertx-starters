@@ -1,10 +1,51 @@
 # Vert.x Starter I - Hello World!
 
-We begin with our starter series with the tradition-honored "Hello World" example.
+We begin with our starter series with the traditional "Hello World" example.
+
+## Project Structure
+
+The standard Vert.x [project structure](http://vertx.io/dev_guide.html) is followed. 
+
+The source code of the module is:
+
+>**src\main\java\demo.starter.vertx.helloworld.HelloVerticle.java**
+>The main Vert.x verticle of this module, creating an HTTP server to serve "Hell World!".
+>
+>**src\main\resources\mod.json**
+>The mod description jason.
+>
+>**src\test\java\demo.starter.vertx.helloworld.integration.HelloIntegrationTest.java**
+>The integration test for `HelloVerticle`.
+
+The build files of the modules are:
+
+>**pom.xml**
+>The Maven build file.
+>
+>**src\main\assembly\mod.xml**
+>The configuration for the Maven assembly plugin to build the Vert.x mod zip.
+
+
+## Maven Integration
+
+With all common elements extracted into the parent `pom`, the project `pom` is quite simple and straightforward.
+
+Common Maven commands:
+* `mvn verify` to execute integration tests.
+* `mvn install` to compile, test and package the Vert.x mod. 
+* `mvn vertx:runMod` to deploy and run the Vert.x mod. This brings up the HTTP server at `http://localhost:8080` in this example.
+
+## Tests and Debugging
+
+Vert.x makes it easy to incorporate unit tests and integration tests. This module contains one integration test, [HelloIntegrationTest](https://github.com/relai/vertx-starters/blob/master/helloworld/src/test/java/demo/starter/vertx/helloworld/integration/HelloIntegrationTest.java), testing whether the HTTP server serves the correct content. The module does not have unit tests.
+
+Tests are invoked as part of maven `install`. To execute integration tests specifically, run `mvn verify`. 
+
+You can [run or debug](http://vertx.io/dev_guide.html#run-tests-in-your-ide) the integration test directly within your IDE, without special set-up.
 
 ## Lambda and Java 8
 
-By nature of event-driven programming, Vert.x extensively uses functional interfaces as event handlers. The following is a "Hello World" example:
+By its nature of event-driven programming, Vert.x extensively uses functional interfaces as event handlers. The following is a "Hello World" example:
 
         // "Hello World" in Java 7
         Handler<HttpServerRequest> handler = new Handler<HttpServerRequest>() {
@@ -21,10 +62,10 @@ The `Handler` class is a functional interface, containing a single handler metho
         
         // "Hello World" in Groovy
         vertx.createHttpServer()
-             .requestHandler({request ->  request.response().end("Hello World!")})
+             .requestHandler {request ->  request.response().end("Hello World!")}
              .listen(8080, "localhost");
 
-Isn't this much less verbose? No wonder many Vert.x official examples are given in Groovy or JavaScript.
+This is much better. No wonder many Vert.x official examples are given in Groovy or JavaScript.
 
 Fortunately for Java developers, Lambda finally made it into Java 8, and Vert.x has positioned itself well for this day. The following is the same [HelloVerticle](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/java/demo/starter/vertx/helloworld/HelloVerticle.java) in Java 8:
 
@@ -33,22 +74,4 @@ Fortunately for Java developers, Lambda finally made it into Java 8, and Vert.x 
                   .requestHandler(request -> request.response().end("Hello World!"))
                   .listen(8080, "localhost");
 
-Aren't stars all aligned for Vert.x? Isn't it simply the right framework at the right time?
-
-
-## Integration Test 
-
-Vert.x makes it easy to incorporate integration tests. [HelloIntegrationTest](https://github.com/relai/vertx-starters/blob/master/helloworld/src/test/java/demo/starter/vertx/helloworld/integration/HelloIntegrationTest.java) tests the HTTP server serves the correct content.
-
-## Build  
-
-This module is created using [vertx maven integration](http://vertx.io/maven_dev.html). 
-
-Use `mvn install` to compile, test and package the Vert.x mod. To execute the mode, run command:
-
-    mvn vertx:runMod
-
-The command deploys the "Hello World" mod, bringing up the HTTP server at `http://localhost:8080`.
-
-
-
+Aren't all stars aligned for Vert.x? It is such a wonderful framework, just at the right time.

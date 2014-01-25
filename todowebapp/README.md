@@ -5,14 +5,41 @@ A sample application to track your to-do items:
 * A rich-client application based on the [Backbone.js TodoMVC] (https://github.com/tastejs/todomvc/tree/gh-pages/architecture-examples/backbone) by Addy Osmani
 * The client application is backed by the [to-do REST API](https://github.com/relai/vertx-starters/tree/master/todoapi).
 
+## Project Structure
+
+The main source code:
+
+> **src\main\java\demo.starter.vertx.todo.App.java**
+> The main Vert.x verticle of this module, deploying the web server and the mongo persistor.
+>
+> **src\main\java\demo.starter.vertx.todo.WebServer.java**
+> The web server to serve both the static web content and the to-do RESTful service.
+>
+> **src\main\webapp
+> The folder for static web content, which is packaged into the `web` folder in the mod.
+>
+> **src\main\resources\mod.json**
+> The mod descriptor.
+>
+> **src\test\java\demo.starter.vertx.todo.integration.java.ToDoIntTest.java**
+> Integration test of the web application, for both the `index.html` page and the REST API.
+
+## Dependency Management
+
+The module has compile time dependency to the following two mods:
+
+* io.vertx~mod-web-server
+* demo.starter.vertx~todoapi
+
+The dependency is declared `mod.json`, and marked as "provided" in [pom.xml](https://github.com/relai/vertx-starters/blob/master/todowebapp/pom.xml) as provided. 
+
+The module also depends on the mongo persistor at the deployment time, which is also declared in `mod.json`.
 
 ## Web Server
 
 The web server is based on the [Vert.x web server] (https://github.com/vert-x/mod-web-server). 
 
-Static contents placed inside the web root directory are served. The directory is defaulted to be `web`.
-
-Dynamic contents are served with the help of [`RouteMatcher`](https://github.com/relai/vertx-starters/blob/master/todowebapp/src/main/java/demo/starter/vertx/todo/WebServer.java):
+The web server servers all static contents placed inside the web root directory, which is defaulted to be `web`. Dynamic contents are served with the help of [`RouteMatcher`](https://github.com/relai/vertx-starters/blob/master/todowebapp/src/main/java/demo/starter/vertx/todo/WebServer.java):
 
       ToDoHandler handler = new ToDoHandler(getVertx().eventBus());
       RouteMatcher matcher = new RouteMatcher()
@@ -22,34 +49,6 @@ Dynamic contents are served with the help of [`RouteMatcher`](https://github.com
                 .put("/todos/:id",    handler::update)
                 .delete("/todos/:id", handler::delete)       
                 .noMatch(staticHandler());
-
-## Dependency Management
-
-The compile-time dependencies are declared in [pom.xml](https://github.com/relai/vertx-starters/blob/master/todowebapp/pom.xml):
-
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>mod-web-server</artifactId>
-      <version>${vertx.mod-web-server.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>demo.starter.vertx</groupId>
-      <artifactId>todoapi</artifactId>
-      <version>${project.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-They are marked as "provided", as they are only needed for compile, but not packaged into the mod.
-
-The deployment-time dependencies are declared in mod.json:
-
-      "includes": "demo.starter.vertx~todoapi~1.0-SNAPSHOT,io.vertx~mod-web-server~2.0.0-final"
-
-Vert.x downloads and installs the dependent mods accordingly at the time of deployment. 
-
-Transitive dependencies are not required to be declared explicitly. The todoapi mod itself depends on `io.vertx~mod-mongo-persistor~2.1.0`. Vert.x figures this out by inspecting its `mod.json`.
-
 
 ## Rich Client Application
 
@@ -80,7 +79,3 @@ The content is packaged into the "web" folder inside the mod via the maven resou
                </resources>
              </configuration>
            </execution>
-
-## Integration Test
-
-The [integration test](https://github.com/relai/vertx-starters/blob/master/todowebapp/src/test/java/demo/starter/vertx/todo/integration/java/ToDoIntTest.java) covers the index html page loading and sanity test of the REST API.

@@ -2,7 +2,7 @@
   "main":"demo.starter.vertx.todo.RestApp",
   "preserve-cwd": true,
 
-  "includes": "io.vertx~mod-mongo-persistor~2.1.0",
+  "includes": "io.vertx~mod-mongo-persistor~${mod.mongopersistor.version}",
   
   "description":"A simple todo rest application",
   "licenses": ["The Apache Software License Version 2.0"],

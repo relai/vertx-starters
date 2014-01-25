@@ -1,11 +1,13 @@
 package demo.starter.vertx.todo.integration.java;
 
-/*  
+/**  
  * Integration Test for todoapi App
  *
  * @author <a href="http://relai.blogspot.com/">Re Lai</a>
  */
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Test;
 
 import org.vertx.java.core.AsyncResult;
@@ -22,6 +24,9 @@ public class ToDoRestIntTest extends TestVerticle {
    
     private String itemId;
     
+    /**
+     * Tests get all items.
+     */
     @Test
     public void getAll() {
         createHttpClient().get("/todos",
@@ -35,10 +40,14 @@ public class ToDoRestIntTest extends TestVerticle {
         ).end();
     }
 
+    /**
+     * Tests CRUD operations of an item. It starts with creating an item first. 
+     * It then updates, gets and deletes the item.
+     */
     @Test
     public void testItemCRUD() {
-        // Starting with creating an item first
-        // We'll then chain tests agaist the item to update, get and delete
+          
+        // Starts with creating an item by POST
         HttpClientRequest request = createHttpClient().post("/todos",             
             (HttpClientResponse resp) -> {            
                 assertEquals(201, resp.statusCode());
@@ -66,7 +75,7 @@ public class ToDoRestIntTest extends TestVerticle {
             .end();
     }
 
-   
+    // Updates an item by PUT 
     private void updateItem() {        
         HttpClientRequest request = createHttpClient().put("/todos/" + itemId, 
             (HttpClientResponse resp) -> {
@@ -87,6 +96,7 @@ public class ToDoRestIntTest extends TestVerticle {
     }
 
 
+    // Gets an item by GET
     private void getItem() {
         createHttpClient().get("/todos/" + itemId,
             (HttpClientResponse resp) -> {
@@ -104,6 +114,7 @@ public class ToDoRestIntTest extends TestVerticle {
     }
     
 
+    // Deletes an item by DELETE
     private void deleteItem() {
         createHttpClient().delete("/todos/" + itemId, 
             (HttpClientResponse resp) -> {
@@ -116,17 +127,18 @@ public class ToDoRestIntTest extends TestVerticle {
     @Override
     public void start() {
         initialize();
-        
-        // Normally one should use "vertx.modulename" system property to retrieve the vertx module name.
-        // However, in the multi-module case, the property incorrectly points to the parent pom.
-        // To workaround, "module.name" system property is added to pom.xml
-        // to point to the correct module name.
-        getContainer().deployModule(System.getProperty("module.name"),
+
+        getContainer().deployModule(System.getProperty("vertx.modulename"),
             (AsyncResult<String> asyncResult) -> {
                 assertTrue(asyncResult.succeeded());
                 assertNotNull("deploymentID should not be null", 
                               asyncResult.result());
-
+                
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ToDoRestIntTest.class.getName()).log(Level.SEVERE, null, ex);
+            }                
                 startTests();
         });
     }

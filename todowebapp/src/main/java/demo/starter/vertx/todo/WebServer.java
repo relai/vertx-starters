@@ -3,7 +3,7 @@ package demo.starter.vertx.todo;
 import org.vertx.java.core.http.RouteMatcher;
 import org.vertx.mods.web.WebServerBase;
 
-/* 
+/** 
  * The Web Serer
  *
  * @author <a href="http://relai.blogspot.com/">Re Lai</a>

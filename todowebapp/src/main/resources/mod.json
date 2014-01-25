@@ -1,7 +1,7 @@
 {
   "main":"demo.starter.vertx.todo.App",
   
-  "includes": "demo.starter.vertx~todoapi~1.0-SNAPSHOT,io.vertx~mod-web-server~2.0.0-final",
+  "includes": "demo.starter.vertx~todoapi~${project.version}, io.vertx~mod-web-server~${mod.webserver.version}, io.vertx~mod-mongo-persistor~${mod.mongopersistor.version}",
 
   "description":"vert.x starter sample: to-do web application",
   "licenses": ["The Apache Software License Version 2.0"],

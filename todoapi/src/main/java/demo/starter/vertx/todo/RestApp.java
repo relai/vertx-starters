@@ -4,7 +4,7 @@ import org.vertx.java.core.http.RouteMatcher;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.platform.Verticle;
 
-/* 
+/** 
  * A sample todo REST application.
  *
  * @author <a href="http://relai.blogspot.com/">Re Lai</a>

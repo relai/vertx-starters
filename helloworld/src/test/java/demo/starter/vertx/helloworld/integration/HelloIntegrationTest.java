@@ -41,10 +41,7 @@ public class HelloIntegrationTest extends TestVerticle {
     public void start() {
         initialize();
 
-        // Normally one should use "vertx.modulename" system property to retrieve the vertx module name.
-        // However, in the case of a multi-module maven project, the property incorrectly points to the parent pom.
-        // To workaround, "module.name" system property is added to pom.xml to point to the correct module.
-        getContainer().deployModule(System.getProperty("module.name"),
+        getContainer().deployModule(System.getProperty("vertx.modulename"),
             (AsyncResult<String> result) -> {
                 assertTrue(result.succeeded());
                 assertNotNull("deploymentID should not be null", result.result());

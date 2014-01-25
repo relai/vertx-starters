@@ -3,7 +3,7 @@ package demo.starter.vertx.todo;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.platform.Verticle;
 
-/* 
+/** 
  * The verticle of the To Do Web Application
  *
  * @author <a href="http://relai.blogspot.com/">Re Lai</a>

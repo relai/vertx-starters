@@ -8,7 +8,7 @@ import org.vertx.java.core.http.HttpClientResponse;
 import org.vertx.testtools.TestVerticle;
 import static org.vertx.testtools.VertxAssert.*;
 
-/*  
+/**  
  * Integration Test for todo web app
  *
  * @author <a href="http://relai.blogspot.com/">Re Lai</a>
@@ -18,7 +18,7 @@ public class ToDoIntTest extends TestVerticle {
 
         
     @Test
-    public void loadIndexPage() {
+    public void testIndexPage() {
         createHttpClient().get("/",
             (HttpClientResponse resp) -> {
                 assertEquals(200, resp.statusCode());
@@ -44,17 +44,11 @@ public class ToDoIntTest extends TestVerticle {
         ).end();
     }
 
-   
-
     @Override
     public void start() { 
         initialize();
         
-        // Normally one should use "vertx.modulename" system property to retrieve the vertx module name.
-        // However, in the multi-module case, the property incorrectly points to the parent pom.
-        // To workaround, "module.name" system property is added to pom.xml
-        // to point to the correct module name.
-        getContainer().deployModule(System.getProperty("module.name"),
+        getContainer().deployModule(System.getProperty("vertx.modulename"),
             (AsyncResult<String> asyncResult) -> {
                 assertTrue(asyncResult.succeeded());
                 assertNotNull("deploymentID should not be null", 
@@ -62,7 +56,6 @@ public class ToDoIntTest extends TestVerticle {
                 startTests();
         });
     }
-
 
     private HttpClient createHttpClient() {
         return getVertx().createHttpClient()
