@@ -1,6 +1,6 @@
 # Vert.x Starter I - Hello World!
 
-We begin with our starter series with the traditional "Hello World" example.
+Our starter series begins with the traditional "Hello World" example.
 
 ## Project Structure
 
