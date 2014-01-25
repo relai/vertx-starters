@@ -7,25 +7,13 @@ We begin with our starter series with the traditional "Hello World" example.
 The standard Vert.x [project structure](http://vertx.io/dev_guide.html) is followed. 
 
 The source code:
+* `src\main\java\demo.starter.vertx.helloworld.HelloVerticle.java`: the main Vert.x verticle of this module, creating an HTTP server to serve "Hell World!".
+* `src\main\resources\mod.json`: the mod description jason.
+* `src\test\java\demo.starter.vertx.helloworld.integration.HelloIntegrationTest.java`: the integration test for `HelloVerticle`.
 
->*src\main\java\demo.starter.vertx.helloworld.HelloVerticle.java**
-
->The main Vert.x verticle of this module, creating an HTTP server to serve "Hell World!".
->
->**src\main\resources\mod.json**
->The mod description jason.
->
->**src\test\java\demo.starter.vertx.helloworld.integration.HelloIntegrationTest.java**
->The integration test for `HelloVerticle`.
-
-The build files of the modules are:
-
->**pom.xml**
->The Maven build file.
->
->**src\main\assembly\mod.xml**
->The configuration for the Maven assembly plugin to build the Vert.x mod zip.
-
+The build files:
+* `pom.xml`: the Maven build file.
+* `src\main\assembly\mod.xml`: the configuration for the Maven assembly plugin to build the Vert.x mod zip.
 
 ## Maven Integration
 
