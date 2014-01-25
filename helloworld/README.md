@@ -6,9 +6,10 @@ We begin with our starter series with the traditional "Hello World" example.
 
 The standard Vert.x [project structure](http://vertx.io/dev_guide.html) is followed. 
 
-The source code of the module is:
+The source code:
 
->**src\main\java\demo.starter.vertx.helloworld.HelloVerticle.java**
+>*src\main\java\demo.starter.vertx.helloworld.HelloVerticle.java**
+
 >The main Vert.x verticle of this module, creating an HTTP server to serve "Hell World!".
 >
 >**src\main\resources\mod.json**
