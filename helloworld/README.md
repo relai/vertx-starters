@@ -1,4 +1,5 @@
-# Vert.x Starter I - Hello World!
+####[Vertx Starter Series](https://github.com/relai/vertx-starters): Pt I
+# Hello World!
 
 Our starter series begins with the traditional "Hello World" example.
 
@@ -8,16 +9,16 @@ The standard Vert.x [project structure](http://vertx.io/dev_guide.html) is follo
 
 **The source code**:
 
-- `src\main\java\demo.starter.vertx.helloworld.HelloVerticle.java`: 
+- [`HelloVerticle.java`](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/java/demo/starter/vertx/helloworld/HelloVerticle.java): 
 the main Vert.x verticle of this module, creating an HTTP server to serve "Hell World!".
-- `src\main\resources\mod.json`: the mod descriptor
-- `src\test\java\demo.starter.vertx.helloworld.integration.HelloIntegrationTest.java`:
+- [`mod.json`](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/resources/mod.json): the mod descriptor
+- [`HelloIntegrationTest.java`](https://github.com/relai/vertx-starters/blob/master/helloworld/src/test/java/demo/starter/vertx/helloworld/integration/HelloIntegrationTest.java):
 the integration test of the module.
 
 **The build files**:
 
-* `pom.xml`: the Maven build file.
-* `src\main\assembly\mod.xml`: the configuration for the Maven assembly plugin to build the Vert.x mod zip.
+* [`pom.xml`](https://github.com/relai/vertx-starters/blob/master/helloworld/pom.xml): the Maven build file.
+* [`mod.xml`](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/assembly/mod.xml): the configuration for the Maven assembly plugin to build the Vert.x mod zip.
 
 ## Lambda and Java 8
 
@@ -44,7 +45,7 @@ The `Handler` class is a functional interface, containing a single handler metho
 
 This is much better. No wonder many Vert.x official examples are given in Groovy or JavaScript.
 
-Fortunately for Java developers, Lambda finally made it into Java 8, and Vert.x has positioned itself well for this day. The following is the same [HelloVerticle](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/java/demo/starter/vertx/helloworld/HelloVerticle.java) in Java 8:
+Fortunately for Java developers, [lambda](http://relai.blogspot.com/2013/11/java-lambda-cheat-sheet.html) finally made it in Java 8, and Vert.x has positioned itself well for this day. The following is the same [HelloVerticle](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/java/demo/starter/vertx/helloworld/HelloVerticle.java) in Java 8:
 
         // "Hello World" in Java 8
         getVertx().createHttpServer()
@@ -67,7 +68,7 @@ Common Maven commands:
 
 Vert.x makes it easy to incorporate unit tests and integration tests. This module contains one integration test, [HelloIntegrationTest](https://github.com/relai/vertx-starters/blob/master/helloworld/src/test/java/demo/starter/vertx/helloworld/integration/HelloIntegrationTest.java), testing whether the HTTP server serves the correct content. The module does not have unit tests.
 
-Tests are invoked as part of maven `install`. To execute integration tests specifically, run `mvn verify`. 
+Tests are invoked as part of `mvn install`. To execute integration tests specifically, run `mvn verify`. 
 
 You can [run or debug](http://vertx.io/dev_guide.html#run-tests-in-your-ide) the integration test directly within your IDE, without special set-up.
 
