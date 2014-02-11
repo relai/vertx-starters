@@ -23,18 +23,18 @@ The project is structured as three modules:
 
        <modules>
             <module>helloworld</module>
-	    <module>todoapi</module>
-	    <module>todowebapp</module>
+            <module>todoapi</module>
+            <module>todowebapp</module>
        </modules>  
 
-Shared elements of sub-module `pom's` are extracted into the parent [`pom`](https://github.com/relai/vertx-starters/blob/master/pom.xml) as much as possible in order to avoid duplication and inconsistency:
+Shared elements of sub-module `pom's` are extracted into the parent [`pom`](https://github.com/relai/vertx-starters/blob/master/pom.xml) as much as possible in order to avoid duplication and inconsistency, including
 
 * properties for dependencies and versions,
 * common dependencies,
 * plugins for compiling, resource and packaging.
 
 
-The following are common maven commands:
+The following are useful common maven commands:
 
 *  `mvn clean`      To clean up
 *  `mvn verify`     To execute integration tests
