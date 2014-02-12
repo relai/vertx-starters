@@ -1,39 +1,31 @@
-# Vert.x Starter III - To Do Web Application 
+####[Vertx Starter Series](https://github.com/relai/vertx-starters)
+# Part III - To Do Web Application 
 
-A sample application to track your to-do items:
+In the last part of the tutorial, we build a sample application to track your to-do items:
 
 * A rich-client application based on the [Backbone.js TodoMVC] (https://github.com/tastejs/todomvc/tree/gh-pages/architecture-examples/backbone) by Addy Osmani
 * The client application is backed by the [to-do REST API](https://github.com/relai/vertx-starters/tree/master/todoapi).
 
 ## Project Structure
 
-The main source code:
+**The main source code**:
 
-> **src\main\java\demo.starter.vertx.todo.App.java**
-> The main Vert.x verticle of this module, deploying the web server and the mongo persistor.
->
-> **src\main\java\demo.starter.vertx.todo.WebServer.java**
-> The web server to serve both the static web content and the to-do RESTful service.
->
-> **src\main\webapp
-> The folder for static web content, which is packaged into the `web` folder in the mod.
->
-> **src\main\resources\mod.json**
-> The mod descriptor.
->
-> **src\test\java\demo.starter.vertx.todo.integration.java.ToDoIntTest.java**
-> Integration test of the web application, for both the `index.html` page and the REST API.
+- [`App.java`](src/main/java/demo/starter/vertx/todo/App.java): the main Vert.x verticle of this module, deploying the web server and the mongo persistor.
+- [`WebServer.java`](src/main/java/demo/starter/vertx/todo/WebServer.java): the web server to serve both the static web content and the to-do RESTful service.
+- [`webapp`](src/main/webapp): the folder for static web content, which is packaged into the `web` folder in the mod.
+- [`mod.json`](src/main/resources/mod.json): the mod descriptor.
+- [`ToDoIntTest.java`](src/test/java/demo/starter/vertx/todo/integration/java/ToDoIntTest.java): integration test of the web application, for both the `index.html` page and the REST API.
 
 ## Dependency Management
 
-The module has compile time dependency to the following two mods:
+The module has compile-time dependency to the following two mods:
 
 * io.vertx~mod-web-server
 * demo.starter.vertx~todoapi
 
-The dependency is declared `mod.json`, and marked as "provided" in [pom.xml](https://github.com/relai/vertx-starters/blob/master/todowebapp/pom.xml) as provided. 
+The dependency is declared [`mod.json`](src/main/resources/mod.json), and marked as "provided" in [pom.xml](pom.xml) as provided. 
 
-The module also depends on the mongo persistor at the deployment time, which is also declared in `mod.json`.
+The module also depends on the mongo persistor at the deployment time, which is also declared in [`mod.json`](src/main/resources/mod.json).
 
 ## Web Server
 
