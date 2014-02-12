@@ -1,5 +1,5 @@
-####[Vertx Starter Series](https://github.com/relai/vertx-starters): Pt I
-# Hello World!
+####[Vertx Starter Series](https://github.com/relai/vertx-starters)
+# Part I: Hello World!
 
 Our starter series begins with the traditional "Hello World" example.
 
@@ -36,7 +36,7 @@ By its nature of event-driven programming, Vert.x extensively uses functional in
                   .listen(8080, "localhost");
              
 
-The `Handler` class is a functional interface, containing a single handler method. This design choice allows Vert.x to seamlessly interop with functional languages such as Groovy and JavaScript:
+The `Handler` class is a functional interface. This design choice allows Vert.x to seamlessly interop with functional languages such as Groovy and JavaScript:
         
         // "Hello World" in Groovy
         vertx.createHttpServer()
@@ -45,7 +45,7 @@ The `Handler` class is a functional interface, containing a single handler metho
 
 This is much better. No wonder many Vert.x official examples are given in Groovy or JavaScript.
 
-Fortunately for Java developers, [lambda](http://relai.blogspot.com/2013/11/java-lambda-cheat-sheet.html) finally made it in Java 8, and Vert.x has positioned itself well for this day. The following is the same [HelloVerticle](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/java/demo/starter/vertx/helloworld/HelloVerticle.java) in Java 8:
+Fortunately for Java developers, [lambda](http://relai.blogspot.com/2013/11/java-lambda-cheat-sheet.html) finally made it in Java 8. Vert.x has positioned itself well to fully take advantage of it. The following is the same [HelloVerticle](https://github.com/relai/vertx-starters/blob/master/helloworld/src/main/java/demo/starter/vertx/helloworld/HelloVerticle.java) in Java 8:
 
         // "Hello World" in Java 8
         getVertx().createHttpServer()
