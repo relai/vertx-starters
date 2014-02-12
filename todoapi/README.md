@@ -1,35 +1,26 @@
-# Vert.x Starter II - TO-do REST Service
+####[Vertx Starter Series](https://github.com/relai/vertx-starters)
+# Part II: To-do REST Service
 
 The to-do service is a REST web service backed by MongoDB. It fully supports CRUD of to-do items.
 
 ## Project Structure
 
-Source Code:
+**Source Code**:
 
-> **src\main\java\demo.starter.vertx.todo.RestApp.java**
-> The main Vert.x verticle of this module, providing the to-do RESTful service.
->
-> **src\main\java\demo.starter.vertx.todo.ToDoHandler.java**
-> The event handler to serve HTTP request by asynchronous query of the MongoDB.
->
-> **src\test\java\demo.starter.vertx.todo.integration.java.ToDoRestIntTest.java**
-> Integration test of the REST API, including all CRUD operations.
->
-> **src\main\resources\mod.json**
-> The mod descriptor.
+- [`RestApp.java`](src/main/java/demo/starter/vertx/todo/RestApp.java): the main Vert.x verticle of this module, providing the to-do RESTful service.
+- [`ToDoHandler.java`](src/main/java/demo/starter/vertx/todo/ToDoHandler.java): the event handler to serve HTTP request by asynchronous query of the MongoDB.
+- [`ToDoRestIntTest.java`](src/test/java/demo/starter/vertx/todo/integration/java/ToDoRestIntTest.java): integration test of the REST API, including all CRUD operations.
+- [`mod.json`](src/main/resources/mod.json): the mod descriptor.
 
-Build Files:
+**Build Files**:
 
-> **pom.xml**
-> The Maven build file.
->
-> **src\main\assembly\mod.xml**
-> The configuration for the Maven assembly plugin to build the Vert.x mod zip.
+- [`pom.xml`](pom.xml): the Maven build file.
+- [`mod.xml`](src/main/assembly/mod.xml): the configuration for the Maven assembly plugin to build the Vert.x mod zip.
 
 
 ## Service Dispatch
 
-REST calls are dispatched by RouteMatcher:
+REST calls are dispatched by [RouteMatcher](src/main/java/demo/starter/vertx/todo/RestApp.java):
 
         ToDoHandler handler = new ToDoHandler(getVertx().eventBus());
         RouteMatcher routeMatcher = new RouteMatcher()
@@ -68,7 +59,7 @@ Invocation to the persistor is made through the Vert.x event bus. The following 
 
 All communication is made via the event bus. This is a nice architecture choice by Vert.x, making the client code only loosely coupled with the mods it depends. 
 
-MongoDB uses `_id` to store a record ID, which is a bit idiosyncratic and should be hidden from our clients. `ToDoHandler` takes the responsibility of translating `_id` to `id`.
+MongoDB uses `_id` to store a record ID, which is a bit idiosyncratic and should be hidden from our clients. [`ToDoHandler`](https://github.com/relai/vertx-starters/blob/master/todoapi/src/main/java/demo/starter/vertx/todo/ToDoHandler.java) takes the responsibility of translating `_id` to `id`.
 
 ## Dependency Management and Maven
 
@@ -95,9 +86,9 @@ Dependent mods are explicitly declared in [`mod.json`](https://github.com/relai/
 
     "includes": "io.vertx~mod-mongo-persistor~2.1.0"
 
-In our example, this is purely a deployment dependency. Loose coupling thanks to the event bus allow us to avoid compile dependency. As a result, this dependency is not needed to be declared in pom.
+In our example, this is purely a deployment dependency. Loose coupling thanks to the event bus eliminates compile-time dependency. As a result, this dependency is not needed to be declared in pom.
 
-The code can be further refactored to centralize the version control inside `pom`. This can be achieved by Maven resource filtering as follows:
+The code can be further refactored to centralize the version control inside `pom`. This can be achieved by [Maven resource filtering](http://maven.apache.org/plugins/maven-resources-plugin/examples/filter.html) as follows:
 
     "includes": "io.vertx~mod-mongo-persistor~${mod.mongopersistor.version}"
 
@@ -106,7 +97,7 @@ The maven property `mod.mongoperisitor.version` is defined in the parent `pom`.
 
 ### Dependent Jars
 
-Compile and runtime dependent jars declared in `pom` are packaged into the mod lib folder. This is achieved by the maven dependency plugin as defined in the parent `pom`:
+Compile and runtime dependent jars declared in pom are packaged into the mod lib folder. This is achieved by the maven dependency plugin as defined in the parent [`pom`](https://github.com/relai/vertx-starters/blob/master/pom.xml):
 
         <plugin>
            <groupId>org.apache.maven.plugins</groupId>
